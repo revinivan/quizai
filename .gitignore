@@ -1,0 +1,8 @@
+.idea
+docs
+__pycache__
+quiz_quiz*
+.vscode
+.env
+tests
+uploads
