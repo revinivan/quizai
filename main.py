@@ -3,6 +3,7 @@ import uuid
 import json
 from flask import Flask, flash, request, redirect, jsonify, make_response
 from werkzeug.utils import secure_filename
+from openai import RateLimitError
 
 from process_file import satgpt
 from extract_quiz import extract_quiz
@@ -36,11 +37,18 @@ def create_quiz_stub(uploaded_file):
     return jsonify(quiz.model_dump())
 
 def create_quiz(uploaded_file):
-    response = satgpt(uploaded_file)
-    save_response(uploaded_file, response['result'])
-    text_quiz = response['result']
-    quiz = extract_quiz(text_quiz + f"/n Source document: {uploaded_file}")
-    return jsonify(quiz.model_dump())
+    try:
+        response = satgpt(uploaded_file)
+        save_response(uploaded_file, response['result'])
+        text_quiz = response['result']
+        quiz = extract_quiz(text_quiz + f"/n Source document: {uploaded_file}")
+        return jsonify(quiz.model_dump())
+    except RateLimitError as e:
+        app.logger.error(f"OpenAI request failed: {e}")
+        return jsonify({
+            "error": "The OpenAI account backing this app has run out of credits. "
+                     "Add credits at https://platform.openai.com/settings/organization/billing/ and try again."
+        }), 503
     
 
 @app.route('/', methods=['GET', 'POST'])
