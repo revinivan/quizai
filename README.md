@@ -12,6 +12,13 @@ user can define the number of questions. Two response formats are supported:
 - **JSON** — used by the mobile app built for the hackathon.
 - **Markdown** — can be converted to Anki-compatible flashcards for spaced repetition.
 
+## Hackathon materials
+
+- [Presentation](pdf/Global%20AI%20Hackathon%202025%20-%20Presentation.pdf)
+- [Participant Certificate](pdf/Global%20AI%20Hackathon%202025%20-%20Participant%20Certificate.pdf)
+
+[![Participant certificate preview](pdf/certificate-preview.jpg)](pdf/Global%20AI%20Hackathon%202025%20-%20Participant%20Certificate.pdf)
+
 ## How it works
 
 1. A PDF is uploaded to the Flask server (`main.py`).
