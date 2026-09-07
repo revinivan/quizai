@@ -93,10 +93,12 @@ Either request returns a JSON quiz object, e.g.:
         "Particles that only vibrate at high temperatures"
       ]
     }
-    // ... truncated, a real response contains one entry per generated question
   ]
 }
 ```
+
+A real response contains one entry per generated question (20 by default,
+per the prompt in `process_file.py`) — truncated here for brevity.
 
 You can also open `http://localhost:3000/` in a browser for a simple file
 upload form.
